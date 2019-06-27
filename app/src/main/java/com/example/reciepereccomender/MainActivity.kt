@@ -7,7 +7,10 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.view.View
 import android.widget.Button
-import kotlinx.android.synthetic.main.activity_main.*
+import android.widget.TextView
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         var mButton = findViewById(R.id.button) as Button
 
-        mButton?.setOnClickListener{AwesomeButtonClick()};
+        mButton.setOnClickListener{AwesomeButtonClick()};
 
     }
 
@@ -43,6 +46,35 @@ class MainActivity : AppCompatActivity() {
             c.setIngredientTwo(mEdit2);
             c.setIngredientTheree(mEdit3);
 
-        //c.findreciepe
+        readRecords();
+    }
+
+    fun readRecords() {
+
+        val meals = TableControllerStudent(this).read();
+
+        if (meals.size > 0) {
+
+            for (obj in meals) {
+
+                val id = obj.getId()
+
+                val textViewContents = "id:" + id;
+
+                val textViewStudentItem = TextView(this)
+                textViewStudentItem.setPadding(0, 10, 0, 10)
+                textViewStudentItem.setText(textViewContents)
+                textViewStudentItem.tag = Integer.toString(id)
+
+            }
+
+        } else {
+
+            val locationItem = TextView(this)
+            locationItem.setPadding(8, 8, 8, 8)
+            locationItem.text = "No records yet."
+
+        }
+
     }
 }
