@@ -8,6 +8,12 @@ import android.widget.EditText
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.database.sqlite.SQLiteDatabase
+
+
+
+
+
 
 
 
@@ -15,6 +21,8 @@ import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
 
+    private var dbHelper: DatabaseHelper? = null
+    private var mDb: SQLiteDatabase? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
@@ -29,9 +37,17 @@ class MainActivity : AppCompatActivity() {
         // add adapter to spinner
         spinner.adapter = stringArrayAdapter
 
+        //datbase
+        dbHelper = DatabaseHelper(this, getFilesDir().getAbsolutePath());
+
+        dbHelper!!.prepareDatabase();
+
+
+
         var mButton = findViewById(R.id.button) as Button
 
         mButton.setOnClickListener{AwesomeButtonClick()};
+
 
     }
 
@@ -45,36 +61,17 @@ class MainActivity : AppCompatActivity() {
             c.setIngredientOne(mEdit);
             c.setIngredientTwo(mEdit2);
             c.setIngredientTheree(mEdit3);
+            c.setType((findViewById(R.id.spinner) as Spinner).getSelectedItem().toString());
 
-        readRecords();
+        showData(c);
     }
 
-    fun readRecords() {
-
-        val meals = TableControllerStudent(this).read();
-
-        if (meals.size > 0) {
-
-            for (obj in meals) {
-
-                val id = obj.getId()
-
-                val textViewContents = "id:" + id;
-
-                val textViewStudentItem = TextView(this)
-                textViewStudentItem.setPadding(0, 10, 0, 10)
-                textViewStudentItem.setText(textViewContents)
-                textViewStudentItem.tag = Integer.toString(id)
-
-            }
-
-        } else {
-
-            val locationItem = TextView(this)
-            locationItem.setPadding(8, 8, 8, 8)
-            locationItem.text = "No records yet."
-
+    private fun showData(c:Controller) {
+        val list = dbHelper!!.getMeals(c);
+        val data = StringBuffer()
+        for (i in list.indices) {
+            val emp = list.get(i)
+            data.append(emp.getId()).append(",")
         }
-
     }
 }
