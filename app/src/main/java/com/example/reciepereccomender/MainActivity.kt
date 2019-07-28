@@ -1,5 +1,6 @@
 package com.example.reciepereccomender
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Spinner
@@ -63,15 +64,24 @@ class MainActivity : AppCompatActivity() {
             c.setIngredientTheree(mEdit3);
             c.setType((findViewById(R.id.spinner) as Spinner).getSelectedItem().toString());
 
-        showData(c);
+
+        var data=showData(c);
+        val intent = Intent(this, ResultActivity::class.java)
+
+
+        intent.putExtra("result", data.toString());
+        // start your next activity
+        startActivity(intent)
     }
 
-    private fun showData(c:Controller) {
+    private fun showData(c:Controller) : StringBuffer {
         val list = dbHelper!!.getMeals(c);
         val data = StringBuffer()
         for (i in list.indices) {
             val emp = list.get(i)
             data.append(emp.getId()).append(",")
         }
+
+        return data;
     }
 }
