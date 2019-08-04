@@ -10,14 +10,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.database.sqlite.SQLiteDatabase
-
-
-
-
-
-
-
-
+import kotlin.random.Random
 
 
 class MainActivity : AppCompatActivity() {
@@ -76,11 +69,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun showData(c:Controller) : StringBuffer {
         val list = dbHelper!!.getMeals(c);
-        val data = StringBuffer()
-        for (i in list.indices) {
-            val emp = list.get(i)
-            data.append(emp.getId()).append(",")
-        }
+        val data = StringBuffer();
+        val index= Random.nextInt(list.size)
+
+        val meal = list.get(index)
+        data.append("Name: ").append(meal.getName()).append("\n")
+            .append("Ingredients: ").append(meal.getIngredients()).append("\n")
+            .append("Steps: ").append(meal.getSteps()).append("\n")
+            .append("Calories: ").append(meal.getCalories()).append("\n")
+            .append("Preparation time: ").append(meal.getPrepTime()).append("\n")
+
 
         return data;
     }

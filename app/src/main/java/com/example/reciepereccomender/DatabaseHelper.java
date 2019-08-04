@@ -101,7 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "LIKE \"%" + c.ingredientTheree + "%\"";
         Cursor cursor = db.rawQuery(queryAll, null);
         if(!cursor.moveToNext()){
-            String query = "SELECT idMeal FROM Meal WHERE idCategory="+ categoryID + " AND ingredients " +
+            String query = "SELECT idMeal,ingredients,steps, calories, preptime,name FROM Meal WHERE idCategory="+ categoryID + " AND ingredients " +
                     "LIKE \"%" + c.ingredientOne + "%\" OR ingredients " +
                     "LIKE \"%"+ c.ingredientTwo + "%\" OR ingredients " +
                     "LIKE \"%" + c.ingredientTheree + "%\"";
@@ -112,6 +112,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while(cursor.moveToNext()) {
             Meal meal = new Meal();
             meal.setId(cursor.getInt(0));
+            meal.setIngredients(cursor.getString(1));
+            meal.setSteps(cursor.getString(2));
+            meal.setCalories(cursor.getString(3));
+            meal.setPrepTime(cursor.getString(4));
+            meal.setName(cursor.getString(5));
             list.add(meal);
         }
         db.close();
