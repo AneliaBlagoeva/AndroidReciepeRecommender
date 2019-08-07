@@ -16,7 +16,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private final static String TAG = "DatabaseHelper";
     private final Context myContext;
-    private static final String DATABASE_NAME = "Reciepe.db";
+    private static final String DATABASE_NAME = "Reciepe.sqlite";
     private static final int DATABASE_VERSION = 1;
     private String pathToSaveDBFile;
     public DatabaseHelper(Context context, String filePath) {
@@ -101,7 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "LIKE \"%" + c.ingredientTheree + "%\"";
         Cursor cursor = db.rawQuery(queryAll, null);
         if(!cursor.moveToNext()){
-            String query = "SELECT idMeal,ingredients,steps, calories, preptime,name FROM Meal WHERE idCategory="+ categoryID + " AND ingredients " +
+            String query = "SELECT idMeal,ingredients,steps, calories, preptime,name, mealImage FROM Meal WHERE idCategory="+ categoryID + " AND ingredients " +
                     "LIKE \"%" + c.ingredientOne + "%\" OR ingredients " +
                     "LIKE \"%"+ c.ingredientTwo + "%\" OR ingredients " +
                     "LIKE \"%" + c.ingredientTheree + "%\"";
@@ -117,6 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             meal.setCalories(cursor.getString(3));
             meal.setPrepTime(cursor.getString(4));
             meal.setName(cursor.getString(5));
+            meal.setMealImg(cursor.getString(6));
             list.add(meal);
         }
         db.close();

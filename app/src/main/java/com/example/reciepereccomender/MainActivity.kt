@@ -6,17 +6,14 @@ import android.os.Bundle
 import android.widget.Spinner
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.view.View
 import android.widget.Button
-import android.widget.TextView
-import android.database.sqlite.SQLiteDatabase
 import kotlin.random.Random
 
 
 class MainActivity : AppCompatActivity() {
 
     private var dbHelper: DatabaseHelper? = null
-    private var mDb: SQLiteDatabase? = null
+    private var img:String?=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
@@ -59,13 +56,17 @@ class MainActivity : AppCompatActivity() {
 
 
         var data=showData(c);
+
         val intent = Intent(this, ResultActivity::class.java)
 
 
         intent.putExtra("result", data.toString());
+        intent.putExtra("image", img.toString());
         // start your next activity
         startActivity(intent)
     }
+
+
 
     private fun showData(c:Controller) : StringBuffer {
         val list = dbHelper!!.getMeals(c);
@@ -78,6 +79,8 @@ class MainActivity : AppCompatActivity() {
             .append("Steps: ").append(meal.getSteps()).append("\n")
             .append("Calories: ").append(meal.getCalories()).append("\n")
             .append("Preparation time: ").append(meal.getPrepTime()).append("\n")
+
+        img = meal.getMealImg();
 
 
         return data;
