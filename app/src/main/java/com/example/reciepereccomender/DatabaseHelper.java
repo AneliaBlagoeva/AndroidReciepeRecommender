@@ -17,7 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private final static String TAG = "DatabaseHelper";
     private final Context myContext;
     private static final String DATABASE_NAME = "Reciepe.sqlite";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     private String pathToSaveDBFile;
     public DatabaseHelper(Context context, String filePath) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
