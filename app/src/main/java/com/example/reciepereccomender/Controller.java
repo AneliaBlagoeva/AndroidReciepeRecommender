@@ -42,6 +42,10 @@ public class Controller {
     public String ingredientTheree;
 
     public Controller() {
+        this.type = "Breakfast";
+        this.ingredientOne = "";
+        this.ingredientTwo = "";
+        this.ingredientTheree = "";
     }
 
     public Controller(String type, String ingredientOne, String ingredientTwo, String ingredientTheree) {

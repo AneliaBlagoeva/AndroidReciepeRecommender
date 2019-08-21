@@ -100,7 +100,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "LIKE \"%"+ c.ingredientTwo + "%\" AND ingredients " +
                 "LIKE \"%" + c.ingredientTheree + "%\"";
         Cursor cursor = db.rawQuery(queryAll, null);
-        if(!cursor.moveToNext()){
+        if(cursor.getCount()>0){
             String query = "SELECT idMeal,ingredients,steps, calories, preptime,name, mealImage FROM Meal WHERE idCategory="+ categoryID + " AND ingredients " +
                     "LIKE \"%" + c.ingredientOne + "%\" OR ingredients " +
                     "LIKE \"%"+ c.ingredientTwo + "%\" OR ingredients " +

@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.text.method.ScrollingMovementMethod
+
+
 
 
 
@@ -23,6 +26,7 @@ class ResultActivity : AppCompatActivity() {
 
 
             val tv = findViewById<View>(R.id.result) as TextView
+            tv.movementMethod = ScrollingMovementMethod.getInstance()
             tv.text = value;
             //The key argument here must match that used in the other activity
         }

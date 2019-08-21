@@ -8,9 +8,11 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Button
 import kotlin.random.Random
+import android.text.method.TextKeyListener.clear
+import android.view.View
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     private var dbHelper: DatabaseHelper? = null
     private var img:String?=""
@@ -20,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main);
 
         // create a adapter
-        val country = arrayOf("Breakfast", "Lunch", "Snack")
+        val country = arrayOf("Breakfast", "Lunch", "Snack","Dinner")
         val stringArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, country)
 
         // create a spinner
@@ -33,32 +35,51 @@ class MainActivity : AppCompatActivity() {
 
         dbHelper!!.prepareDatabase();
 
-
-
         var mButton = findViewById(R.id.button) as Button
 
-        mButton.setOnClickListener{AwesomeButtonClick()};
+        mButton.setOnClickListener{ AwesomeButtonClick();}
 
 
     }
 
     private fun AwesomeButtonClick()
     {
-        var mEdit   = (findViewById(R.id.editText) as EditText).getText().toString();
-        var mEdit2   = (findViewById(R.id.editText2) as EditText).getText().toString();
-        var mEdit3   = (findViewById(R.id.editText3) as EditText).getText().toString();
+        var data:StringBuffer;
+        try {
+            var c = Controller();
 
-            var c =Controller();
-            c.setIngredientOne(mEdit);
-            c.setIngredientTwo(mEdit2);
-            c.setIngredientTheree(mEdit3);
+            var mEditField = (findViewById(R.id.editText) as EditText).getText();
+            if(mEditField.length!=0)
+            {
+                var mEdit=mEditField.toString()
+                c.setIngredientOne(mEdit);
+            }
+
+            var mEditField2 = (findViewById(R.id.editText2) as EditText).getText();
+            if(mEditField2.length!=0)
+            {
+                var mEdit2=mEditField2.toString()
+                c.setIngredientTwo(mEdit2);
+            }
+
+
+            var mEditField3 = (findViewById(R.id.editText3) as EditText).getText();
+            if(mEditField3.length!=0)
+            {
+                var mEdit3=mEditField3.toString()
+                c.setIngredientTheree(mEdit3);
+            }
+
             c.setType((findViewById(R.id.spinner) as Spinner).getSelectedItem().toString());
+            data=showData(c);
+        }
+        catch (e:Exception)
+        {
+            data= StringBuffer(e.message.toString());
+        }
 
-
-        var data=showData(c);
 
         val intent = Intent(this, ResultActivity::class.java)
-
 
         intent.putExtra("result", data.toString());
         intent.putExtra("image", img.toString());
