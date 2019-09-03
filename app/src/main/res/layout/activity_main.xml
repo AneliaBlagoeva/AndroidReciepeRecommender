@@ -5,19 +5,11 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        android:background="@drawable/background" tools:layout_editor_absoluteY="81dp">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Изберете тип хранене!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.356"
-            app:layout_constraintVertical_bias="0.115" android:id="@+id/textView2"/>
     <Button
-            android:text="Предложи"
+            android:text="Get recipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/button"
@@ -28,36 +20,42 @@
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
             app:layout_constraintHorizontal_bias="1.0" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="1.0"/>
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.985"
+            tools:ignore="OnClick"
+            android:background="@drawable/button_custom"/>
+    <Spinner
+            android:layout_width="161dp"
+            android:layout_height="37dp"
+            android:id="@+id/spinner"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintHorizontal_bias="0.128"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.141"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Продукт 1"
+            android:hint="Type ingredient"
             android:ems="10"
             android:id="@+id/editText"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
-            app:layout_constraintHorizontal_bias="0.439" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/spinner" app:layout_constraintVertical_bias="0.045"/>
-    <Spinner
-            android:layout_width="207dp"
-            android:layout_height="32dp"
-            android:id="@+id/spinner"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp" android:layout_marginTop="30dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" app:layout_constraintVertical_bias="0.012"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.425"
-            app:layout_constraintBottom_toTopOf="@+id/button"/>
+            app:layout_constraintHorizontal_bias="0.318" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/spinner"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            style="@style/App_EditTextStyle" app:layout_constraintVertical_bias="0.132"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Продукт 2"
+            android:hint="Type ingredient"
             android:ems="10"
             android:id="@+id/editText2"
             android:layout_marginEnd="8dp"
@@ -65,22 +63,25 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            app:layout_constraintHorizontal_bias="0.439" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/editText" app:layout_constraintVertical_bias="0.106"
-            app:layout_constraintBottom_toTopOf="@+id/button"/>
+            app:layout_constraintHorizontal_bias="0.318" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/editText"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            style="@style/App_EditTextStyle" app:layout_constraintVertical_bias="0.082"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Продукт 3"
+            android:hint="Type ingredient"
             android:ems="10"
             android:id="@+id/editText3"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/editText2"
-            app:layout_constraintVertical_bias="0.085" android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            app:layout_constraintHorizontal_bias="0.439"/>
+            app:layout_constraintHorizontal_bias="0.318" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/editText2"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            style="@style/App_EditTextStyle" app:layout_constraintVertical_bias="0.132"/>
 
 </android.support.constraint.ConstraintLayout>

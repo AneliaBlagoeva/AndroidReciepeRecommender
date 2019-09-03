@@ -22,15 +22,15 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main);
 
         // create a adapter
-        val country = arrayOf("Breakfast", "Lunch", "Snack","Dinner")
-        val stringArrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, country)
+        val country = arrayOf("Breakfast", "Lunch", "Lunch Snack","Dinner", "Breakfast Snack")
+        val stringArrayAdapter = ArrayAdapter(this, R.layout.spinner_text_color, country)
 
         // create a spinner
         val spinner = findViewById(R.id.spinner) as Spinner
         // add adapter to spinner
         spinner.adapter = stringArrayAdapter
 
-        //datbase
+        //database
         dbHelper = DatabaseHelper(this, getFilesDir().getAbsolutePath());
 
         dbHelper!!.prepareDatabase();
