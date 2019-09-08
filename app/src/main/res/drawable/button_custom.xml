@@ -21,10 +21,10 @@
         <shape>
         <gradient
                 android:angle="270"
-                android:endColor="@color/colorPrimary"
-                android:startColor="@color/colorGradientDark"/>
+                android:endColor="@color/colorGradientDark"
+                android:startColor="@color/colorGradientLight"/>
         <stroke
-                android:width="4dp"
+                android:width="1dp"
                 android:color="@color/colorGradientDark"/>
         <corners
                 android:radius="15dp"/>
@@ -35,5 +35,4 @@
                 android:top="10dp"/>
         </shape>
         </item>
-
 </selector>
