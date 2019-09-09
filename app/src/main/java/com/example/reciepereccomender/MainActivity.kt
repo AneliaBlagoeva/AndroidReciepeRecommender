@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main);
 
         // create a adapter
-        val country = arrayOf("Breakfast", "Lunch", "Lunch Snack","Dinner", "Breakfast Snack")
+        val country = arrayOf("BREAKFAST", "LUNCH", "LUNCH SNACK","DINNER", "BREAKFAST SNACK")
         val stringArrayAdapter = ArrayAdapter(this, R.layout.spinner_text_color, country)
 
         // create a spinner
