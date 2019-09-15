@@ -18,7 +18,7 @@ class ResultActivity : AppCompatActivity() {
         setContentView(R.layout.result_view)
 
         val extras = intent.extras
-        if (extras != null) {
+        if (intent.hasExtra("result")) {
             val value = extras.getString("result")
             val imageUrl = extras.getString("image")
             val imageView = findViewById<View>(R.id.imageView) as ImageView

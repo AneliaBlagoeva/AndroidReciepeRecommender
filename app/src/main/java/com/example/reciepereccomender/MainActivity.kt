@@ -95,11 +95,11 @@ class MainActivity : AppCompatActivity(){
         val index= Random.nextInt(list.size)
 
         val meal = list.get(index)
-        data.append("Name: ").append(meal.getName()).append("\n")
-            .append("Ingredients: ").append(meal.getIngredients()).append("\n")
-            .append("Steps: ").append(meal.getSteps()).append("\n")
-            .append("Calories: ").append(meal.getCalories()).append("\n")
-            .append("Preparation time: ").append(meal.getPrepTime()).append("\n")
+        data.append("Name: ").append(meal.getName()).append("\n\n")
+            .append("Ingredients: ").append(meal.getIngredients()).append("\n\n")
+            .append("Steps: ").append(meal.getSteps()).append("\n\n")
+            .append("Calories: ").append(meal.getCalories()).append("\n\n")
+            .append("Preparation time: ").append(meal.getPrepTime()).append("\n\n")
 
         img = meal.getMealImg();
 

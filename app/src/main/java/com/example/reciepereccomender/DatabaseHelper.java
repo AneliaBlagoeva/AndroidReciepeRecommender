@@ -95,12 +95,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
 
-        String queryAll = "SELECT idMeal FROM Meal WHERE idCategory="+ categoryID + " AND ingredients " +
+        String queryAll = "SELECT idMeal,ingredients,steps, calories, preptime,name, mealImage FROM Meal WHERE idCategory="+ categoryID + " AND ingredients " +
                 "LIKE \"%" + c.ingredientOne + "%\" AND ingredients " +
                 "LIKE \"%"+ c.ingredientTwo + "%\" AND ingredients " +
                 "LIKE \"%" + c.ingredientTheree + "%\"";
         Cursor cursor = db.rawQuery(queryAll, null);
-        if(cursor.getCount()>0){
+        if(cursor.getCount()<1){
             String query = "SELECT idMeal,ingredients,steps, calories, preptime,name, mealImage FROM Meal WHERE idCategory="+ categoryID + " AND ingredients " +
                     "LIKE \"%" + c.ingredientOne + "%\" OR ingredients " +
                     "LIKE \"%"+ c.ingredientTwo + "%\" OR ingredients " +
