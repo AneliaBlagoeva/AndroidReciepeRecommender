@@ -11,7 +11,7 @@
     <Button
             android:text="Get recipe"
             android:layout_width="110dp"
-            android:layout_height="36dp"
+            android:layout_height="38dp"
             android:id="@+id/button"
             android:layout_marginBottom="8dp"
             android:onClick="onClickBtn"
@@ -19,10 +19,10 @@
             android:layout_marginEnd="32dp" android:layout_marginRight="32dp"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            app:layout_constraintHorizontal_bias="1.0" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.946"
+            app:layout_constraintHorizontal_bias="0.927" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.986"
             tools:ignore="OnClick"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorPrimary"
             android:background="@drawable/button_custom"/>
     <Spinner
             android:layout_width="135dp"
@@ -32,10 +32,10 @@
             android:layout_marginRight="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintHorizontal_bias="0.092"
             android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.211"
+            app:layout_constraintVertical_bias="0.065"
             style="@style/spinner_style"/>
     <EditText
             android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
             app:layout_constraintHorizontal_bias="0.318" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/spinner"
             app:layout_constraintBottom_toTopOf="@+id/button"
-            style="@style/App_EditTextStyle" app:layout_constraintVertical_bias="0.132"/>
+            style="@style/App_EditTextStyle" app:layout_constraintVertical_bias="0.103"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

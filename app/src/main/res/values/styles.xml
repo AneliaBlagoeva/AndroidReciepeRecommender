@@ -4,11 +4,11 @@
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorGradientDark</item>
     </style>
     <style name="App_EditTextStyle" parent="@android:style/Widget.EditText">
-        <item name="android:textColorHint">@color/colorAccent</item>
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
     <style name="spinner_style">
         <item name="android:layout_width">match_parent</item>
