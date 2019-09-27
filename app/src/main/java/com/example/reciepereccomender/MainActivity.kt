@@ -22,13 +22,22 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main);
 
         // create a adapter
-        val country = arrayOf("BREAKFAST", "LUNCH", "LUNCH SNACK","DINNER", "BREAKFAST SNACK")
-        val stringArrayAdapter = ArrayAdapter(this, R.layout.spinner_text_color, country)
+        val categories = arrayOf("BREAKFAST", "LUNCH", "SNACK","DINNER")
+        val stringArrayAdapter = ArrayAdapter(this, R.layout.spinner_text_color, categories)
 
         // create a spinner
         val spinner = findViewById(R.id.spinner) as Spinner
         // add adapter to spinner
         spinner.adapter = stringArrayAdapter
+
+        //spinner type
+        val types = arrayOf("NORMAL", "VEGAN", "VEGITARIAN","KETOGENIC","GLUTEN FREE", "LACTOSE FREE")
+        val stringArrayAdapterTypes = ArrayAdapter(this, R.layout.spinner_text_color, types)
+
+        // create a spinner
+        val spinnerType = findViewById(R.id.spinnerType) as Spinner
+        // add adapter to spinner
+        spinnerType.adapter = stringArrayAdapterTypes
 
         //database
         dbHelper = DatabaseHelper(this, getFilesDir().getAbsolutePath());
@@ -70,7 +79,8 @@ class MainActivity : AppCompatActivity(){
                 c.setIngredientTheree(mEdit3);
             }
 
-            c.setType((findViewById(R.id.spinner) as Spinner).getSelectedItem().toString());
+            c.setCategory((findViewById(R.id.spinner) as Spinner).getSelectedItem().toString());
+            c.setType((findViewById(R.id.spinnerType) as Spinner).getSelectedItem().toString());
             data=showData(c);
         }
         catch (e:Exception)
@@ -87,8 +97,6 @@ class MainActivity : AppCompatActivity(){
         startActivity(intent)
     }
 
-
-
     private fun showData(c:Controller) : StringBuffer {
         val list = dbHelper!!.getMeals(c);
         val data = StringBuffer();
@@ -102,7 +110,6 @@ class MainActivity : AppCompatActivity(){
             .append("Preparation time: ").append(meal.getPrepTime()).append("\n\n")
 
         img = meal.getMealImg();
-
 
         return data;
     }

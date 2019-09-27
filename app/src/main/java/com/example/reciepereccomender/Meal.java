@@ -2,8 +2,6 @@ package com.example.reciepereccomender;
 
 public class Meal
 {
-
-    Integer idCategory;
     String ingredients;
     String steps;
     String calories;
@@ -14,9 +12,8 @@ public class Meal
 
     public Meal(){}
 
-    public Meal(Integer id, Integer idCategory, String ingredients, String steps, String calories,String prepTime,String mealImg,String name,String image) {
+    public Meal(Integer id, String ingredients, String steps, String calories,String prepTime,String mealImg,String name,String image) {
         this.id = id;
-        this.idCategory = idCategory;
         this.ingredients = ingredients;
         this.steps = steps;
         this.calories = calories;
@@ -35,14 +32,6 @@ public class Meal
     }
 
     Integer id;
-
-    public Integer getIdCategory() {
-        return idCategory;
-    }
-
-    public void setIdCategory(Integer idCategory) {
-        this.idCategory = idCategory;
-    }
 
     public String getIngredients() {
         return ingredients;

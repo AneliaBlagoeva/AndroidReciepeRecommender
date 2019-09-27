@@ -17,8 +17,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private final static String TAG = "DatabaseHelper";
     private final Context myContext;
     private static final String DATABASE_NAME = "Reciepe.sqlite";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private String pathToSaveDBFile;
+
+
     public DatabaseHelper(Context context, String filePath) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.myContext = context;
@@ -28,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         boolean dbExist = checkDataBase();
         if(dbExist) {
             Log.d(TAG, "Database exists.");
-            int currentDBVersion = 2;
+            int currentDBVersion = 3;
             if (DATABASE_VERSION > currentDBVersion) {
                 Log.d(TAG, "Database version is higher than old.");
                 deleteDb();
@@ -87,21 +89,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);
 
         int categoryID=1;
-        String queryCategory="SELECT id FROM Category WHERE value=\"" + c.type + "\"";
+        String queryCategory="SELECT id FROM Category WHERE value=\"" + c.category + "\"";
         Cursor categoryCursor=db.rawQuery(queryCategory,null);
         while(categoryCursor.moveToNext())
         {
             categoryID=categoryCursor.getInt(0);
         }
 
+        int typeID=1;
+        String queryType="SELECT id FROM Type WHERE value=\"" + c.type + "\"";
+        Cursor typeCursor=db.rawQuery(queryType,null);
+        while(typeCursor.moveToNext())
+        {
+            typeID=typeCursor.getInt(0);
+        }
 
-        String queryAll = "SELECT idMeal,ingredients,steps, calories, preptime,name, mealImage FROM Meal WHERE idCategory="+ categoryID + " AND ingredients " +
+
+        String queryAll = "SELECT idMeal,ingredients,steps, calories, preptime,name, mealImage " +
+                "FROM Meal M " +
+                "INNER JOIN MEAL_CATEGORY C ON C.MEALID=M.IDMEAL " +
+                "INNER JOIN MEAL_TYPE T ON T.MEALID=M.IDMEAL " +
+                "WHERE c.CATEGORYID="+ categoryID + " " +
+                "AND t.TYPEID="+ typeID + " " +
+                "AND ingredients " +
                 "LIKE \"%" + c.ingredientOne + "%\" AND ingredients " +
                 "LIKE \"%"+ c.ingredientTwo + "%\" AND ingredients " +
                 "LIKE \"%" + c.ingredientTheree + "%\"";
         Cursor cursor = db.rawQuery(queryAll, null);
         if(cursor.getCount()<1){
-            String query = "SELECT idMeal,ingredients,steps, calories, preptime,name, mealImage FROM Meal WHERE idCategory="+ categoryID + " AND ingredients " +
+            String query = "SELECT idMeal,ingredients,steps, calories, preptime,name, mealImage " +
+                    "FROM Meal M" +
+                    "INNER JOIN MEAL_CATEGORY C ON C.MEALID=M.IDMEAL " +
+                    "INNER JOIN MEAL_TYPE T ON T.MEALID=M.IDMEAL " +
+                    "WHERE c.id="+ categoryID + " " +
+                    "AND t.id=="+ typeID + " " +
+                    "AND ingredients " +
                     "LIKE \"%" + c.ingredientOne + "%\" OR ingredients " +
                     "LIKE \"%"+ c.ingredientTwo + "%\" OR ingredients " +
                     "LIKE \"%" + c.ingredientTheree + "%\"";

@@ -1,6 +1,16 @@
 package com.example.reciepereccomender;
 
 public class Controller {
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String category;
+
     public String getType() {
         return type;
     }
@@ -42,13 +52,15 @@ public class Controller {
     public String ingredientTheree;
 
     public Controller() {
-        this.type = "Breakfast";
+        this.type = "Normal";
+        this.category="Breakfast";
         this.ingredientOne = "egg";
         this.ingredientTwo = "egg";
         this.ingredientTheree = "egg";
     }
 
-    public Controller(String type, String ingredientOne, String ingredientTwo, String ingredientTheree) {
+    public Controller(String category, String type, String ingredientOne, String ingredientTwo, String ingredientTheree) {
+        this.category = category;
         this.type = type;
         this.ingredientOne = ingredientOne;
         this.ingredientTwo = ingredientTwo;
