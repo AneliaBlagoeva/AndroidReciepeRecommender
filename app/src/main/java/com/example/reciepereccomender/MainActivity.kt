@@ -95,9 +95,9 @@ class MainActivity : AppCompatActivity(){
         val index= Random.nextInt(list.size)
 
         val meal = list.get(index)
-        data.append("Name: ").append(meal.getName()).append("\n\n")
-            .append("Ingredients: ").append(meal.getIngredients()).append("\n\n")
-            .append("Steps: ").append(meal.getSteps()).append("\n\n")
+        data.append(meal.getName()).append("\n\n")
+            .append(meal.getIngredients()).append("\n\n")
+            .append(meal.getSteps()).append("\n\n")
             .append("Calories: ").append(meal.getCalories()).append("\n\n")
             .append("Preparation time: ").append(meal.getPrepTime()).append("\n\n")
 

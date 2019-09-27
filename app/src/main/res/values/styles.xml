@@ -3,8 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorGradientDark</item>
+        <item name="colorPrimaryDark">@color/colorGradientDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
     </style>
     <style name="App_EditTextStyle" parent="@android:style/Widget.EditText">
         <item name="android:textColorHint">@color/colorPrimary</item>
