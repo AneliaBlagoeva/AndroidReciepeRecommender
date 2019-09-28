@@ -32,10 +32,10 @@
             android:layout_marginRight="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.092"
+            app:layout_constraintHorizontal_bias="0.146"
             android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.065"
+            app:layout_constraintVertical_bias="0.154"
             style="@style/spinner_style"/>
     <Spinner
             android:layout_width="135dp"
@@ -45,10 +45,10 @@
             android:layout_marginRight="18dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.93"
+            app:layout_constraintHorizontal_bias="0.146"
             android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.775"
+            app:layout_constraintVertical_bias="0.032"
             style="@style/spinner_style"/>
     <EditText
             android:layout_width="wrap_content"
@@ -62,10 +62,10 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            app:layout_constraintHorizontal_bias="0.318" android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_bias="0.208" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/spinner"
             app:layout_constraintBottom_toTopOf="@+id/button"
-            style="@style/App_EditTextStyle" app:layout_constraintVertical_bias="0.103"/>
+            style="@style/App_EditTextStyle" app:layout_constraintVertical_bias="0.029"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,10 +78,10 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            app:layout_constraintHorizontal_bias="0.318" android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_bias="0.208" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/editText"
             app:layout_constraintBottom_toTopOf="@+id/button"
-            style="@style/App_EditTextStyle" app:layout_constraintVertical_bias="0.082"/>
+            style="@style/App_EditTextStyle" app:layout_constraintVertical_bias="0.029"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,9 +94,9 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            app:layout_constraintHorizontal_bias="0.318" android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_bias="0.208" android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/editText2"
             app:layout_constraintBottom_toTopOf="@+id/button"
-            style="@style/App_EditTextStyle" app:layout_constraintVertical_bias="0.132"/>
+            style="@style/App_EditTextStyle" app:layout_constraintVertical_bias="0.035"/>
 
 </android.support.constraint.ConstraintLayout>
