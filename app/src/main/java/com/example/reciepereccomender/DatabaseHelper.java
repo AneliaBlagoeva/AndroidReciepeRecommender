@@ -1,5 +1,12 @@
 package com.example.reciepereccomender;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,12 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     private final static String TAG = "DatabaseHelper";
     private final Context myContext;
@@ -26,9 +28,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         this.myContext = context;
         pathToSaveDBFile = new StringBuffer(filePath).append("/").append(DATABASE_NAME).toString();
     }
+
     public void prepareDatabase() throws IOException {
         boolean dbExist = checkDataBase();
-        if(dbExist) {
+        if (dbExist) {
             Log.d(TAG, "Database exists.");
             int currentDBVersion = 3;
             if (DATABASE_VERSION > currentDBVersion) {
@@ -48,19 +51,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
     }
+
     private boolean checkDataBase() {
         boolean checkDB = false;
         try {
             File file = new File(pathToSaveDBFile);
             checkDB = file.exists();
-        } catch(SQLiteException e) {
+        } catch (SQLiteException e) {
             Log.d(TAG, e.getMessage());
         }
         return checkDB;
     }
+
     private void copyDataBase() throws IOException {
         OutputStream os = new FileOutputStream(pathToSaveDBFile);
-        InputStream is = myContext.getAssets().open("sqlite/"+DATABASE_NAME);
+        InputStream is = myContext.getAssets().open("sqlite/" + DATABASE_NAME);
         byte[] buffer = new byte[1024];
         int length;
         while ((length = is.read(buffer)) > 0) {
@@ -70,17 +75,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         os.flush();
         os.close();
     }
+
     public void deleteDb() {
         File file = new File(pathToSaveDBFile);
-        if(file.exists()) {
+        if (file.exists()) {
             file.delete();
             Log.d(TAG, "Database deleted.");
         }
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(TAG, "onCreate");
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
@@ -88,59 +96,81 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Meal> getMeals(Controller c) {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);
 
-        int categoryID=1;
-        String queryCategory="SELECT id FROM Category WHERE value=\"" + c.category + "\"";
-        Cursor categoryCursor=db.rawQuery(queryCategory,null);
-        while(categoryCursor.moveToNext())
-        {
-            categoryID=categoryCursor.getInt(0);
+        int categoryID = 1;
+        String queryCategory = "SELECT id FROM Category WHERE value=\"" + c.category + "\"";
+        Cursor categoryCursor = db.rawQuery(queryCategory, null);
+        while (categoryCursor.moveToNext()) {
+            categoryID = categoryCursor.getInt(0);
         }
 
-        int typeID=1;
-        String queryType="SELECT id FROM Type WHERE value=\"" + c.type + "\"";
-        Cursor typeCursor=db.rawQuery(queryType,null);
-        while(typeCursor.moveToNext())
-        {
-            typeID=typeCursor.getInt(0);
+        int typeID = 1;
+        String queryType = "SELECT id FROM Type WHERE value=\"" + c.type + "\"";
+        Cursor typeCursor = db.rawQuery(queryType, null);
+        while (typeCursor.moveToNext()) {
+            typeID = typeCursor.getInt(0);
         }
 
+        //BASE===========================================================================
+        StringBuffer queryBase = new StringBuffer();
+        queryBase.append("SELECT idMeal,ingredients,steps, calories, prepTime,name, mealImage " +
+                        "FROM Meal M " +
+                        "INNER JOIN MEAL_CATEGORY C ON C.MEALID=M.IDMEAL ");
+        if (typeID != 7) {
+            queryBase.append("INNER JOIN MEAL_TYPE T ON T.MEALID=M.IDMEAL " +
+                            "WHERE T.TYPEID=" + typeID + " " +
+                            "AND C.CATEGORYID=" + categoryID + " ");
+        } else {
+            queryBase.append("WHERE C.CATEGORYID= " + categoryID + " ");
+        }
 
-        String queryAll = "SELECT idMeal,ingredients,steps, calories, preptime,name, mealImage " +
-                "FROM Meal M " +
-                "INNER JOIN MEAL_CATEGORY C ON C.MEALID=M.IDMEAL " +
-                "INNER JOIN MEAL_TYPE T ON T.MEALID=M.IDMEAL " +
-                "WHERE c.CATEGORYID="+ categoryID + " " +
-                "AND t.TYPEID="+ typeID + " " +
-                "AND ingredients " +
-                "LIKE \"%" + c.ingredientOne + "%\" AND ingredients " +
-                "LIKE \"%"+ c.ingredientTwo + "%\" AND ingredients " +
-                "LIKE \"%" + c.ingredientTheree + "%\"";
-        Cursor cursor = db.rawQuery(queryAll, null);
-        if(cursor.getCount()<1){
-            String query = "SELECT idMeal,ingredients,steps, calories, preptime,name, mealImage " +
-                    "FROM Meal M" +
-                    "INNER JOIN MEAL_CATEGORY C ON C.MEALID=M.IDMEAL " +
-                    "INNER JOIN MEAL_TYPE T ON T.MEALID=M.IDMEAL " +
-                    "WHERE c.id="+ categoryID + " " +
-                    "AND t.id=="+ typeID + " " +
-                    "AND ingredients " +
-                    "LIKE \"%" + c.ingredientOne + "%\" OR ingredients " +
-                    "LIKE \"%"+ c.ingredientTwo + "%\" OR ingredients " +
-                    "LIKE \"%" + c.ingredientTheree + "%\"";
-            cursor = db.rawQuery(query, null);
+        //ALL INGREDIENTS====================================================================
+        StringBuffer queryAll=new StringBuffer();
+        queryAll.append(queryBase);
+        queryAll.append("AND M.ingredients " +
+                        "LIKE \"%" + c.ingredientOne + "%\" AND M.ingredients " +
+                        "LIKE \"%" + c.ingredientTwo + "%\" AND M.ingredients " +
+                        "LIKE \"%" + c.ingredientTheree + "%\"");
+
+        Cursor cursor = db.rawQuery(queryAll.toString(), null);
+
+        //COMBINATIONS=====================================================================
+        if (cursor.getCount() < 1) {
+        StringBuffer queryCombinatiion=new StringBuffer();
+        queryCombinatiion.append(queryBase);
+        queryCombinatiion.append("AND ((M.ingredients " +
+                    "LIKE \"%" + c.ingredientOne + "%\" AND M.ingredients " +
+                    "LIKE \"%" + c.ingredientTwo + "%\") OR (M.ingredients " +
+                    "LIKE \"%" + c.ingredientOne + "%\" AND M.ingredients " +
+                    "LIKE \"%" + c.ingredientTheree + "%\" ) OR (M.ingredients " +
+                    "LIKE \"%" + c.ingredientTwo + "%\" AND M.ingredients " +
+                        "LIKE \"%" + c.ingredientTheree + "%\"))");
+            cursor = db.rawQuery(queryCombinatiion.toString(), null);
+        }
+
+        //ONE INGREDIENT ONLY================================================================
+        if (cursor.getCount() < 1) {
+            StringBuffer query = new StringBuffer();
+            query.append(queryBase);
+            queryAll.append("AND M.ingredients " +
+                            "LIKE \"%" + c.ingredientOne + "%\" OR M.ingredients " +
+                            "LIKE \"%" + c.ingredientTwo + "%\" OR M.ingredients " +
+                            "LIKE \"%" + c.ingredientTheree + "%\"");
+            cursor = db.rawQuery(query.toString(), null);
         }
 
         List<Meal> list = new ArrayList<Meal>();
-        while(cursor.moveToNext()) {
-            Meal meal = new Meal();
-            meal.setId(cursor.getInt(0));
-            meal.setIngredients(cursor.getString(1));
-            meal.setSteps(cursor.getString(2));
-            meal.setCalories(cursor.getString(3));
-            meal.setPrepTime(cursor.getString(4));
-            meal.setName(cursor.getString(5));
-            meal.setMealImg(cursor.getString(6));
-            list.add(meal);
+        if (cursor.getCount() >= 1) {
+            while (cursor.moveToNext()) {
+                Meal meal = new Meal();
+                meal.setId(cursor.getInt(0));
+                meal.setIngredients(cursor.getString(1));
+                meal.setSteps(cursor.getString(2));
+                meal.setCalories(cursor.getString(3));
+                meal.setPrepTime(cursor.getString(4));
+                meal.setName(cursor.getString(5));
+                meal.setMealImg(cursor.getString(6));
+                list.add(meal);
+            }
         }
         db.close();
         return list;

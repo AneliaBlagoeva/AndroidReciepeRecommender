@@ -52,11 +52,11 @@ public class Controller {
     public String ingredientTheree;
 
     public Controller() {
-        this.type = "Normal";
-        this.category="Breakfast";
-        this.ingredientOne = "egg";
-        this.ingredientTwo = "egg";
-        this.ingredientTheree = "egg";
+        this.type = "Без режим";
+        this.category="Закуска";
+        this.ingredientOne = "яйце";
+        this.ingredientTwo = "яйце";
+        this.ingredientTheree = "яйце";
     }
 
     public Controller(String category, String type, String ingredientOne, String ingredientTwo, String ingredientTheree) {

@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main);
 
         // create a adapter
-        val categories = arrayOf("BREAKFAST", "LUNCH", "SNACK","DINNER")
+        val categories = arrayOf("ЗАКУСКА", "ОБЯД", "СНАК","ВЕЧЕРЯ")
         val stringArrayAdapter = ArrayAdapter(this, R.layout.spinner_text_color, categories)
 
         // create a spinner
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(){
         spinner.adapter = stringArrayAdapter
 
         //spinner type
-        val types = arrayOf("NORMAL", "VEGAN", "VEGITARIAN","KETOGENIC","GLUTEN FREE", "LACTOSE FREE")
+        val types = arrayOf("ВСИЧКИ", "БЕЗ РЕЖИМ", "ВЕГАН", "ВЕГЕТАРИАНСКА","КЕТО","БЕЗ ГЛУТЕН", "БЕЗ ЛАКТОЗА")
         val stringArrayAdapterTypes = ArrayAdapter(this, R.layout.spinner_text_color, types)
 
         // create a spinner
@@ -100,17 +100,24 @@ class MainActivity : AppCompatActivity(){
     private fun showData(c:Controller) : StringBuffer {
         val list = dbHelper!!.getMeals(c);
         val data = StringBuffer();
-        val index= Random.nextInt(list.size)
+        if (list.isNotEmpty()) {
 
-        val meal = list.get(index)
-        data.append(meal.getName()).append("\n\n")
-            .append(meal.getIngredients()).append("\n\n")
-            .append(meal.getSteps()).append("\n\n")
-            .append("Calories: ").append(meal.getCalories()).append("\n\n")
-            .append("Preparation time: ").append(meal.getPrepTime()).append("\n\n")
+            val index = Random.nextInt(list.size)
 
-        img = meal.getMealImg();
+            val meal = list.get(index)
+            data.append(meal.getName()).append("\n\n")
+                .append(meal.getIngredients()).append("\n\n")
+                .append(meal.getSteps()).append("\n\n")
+                .append("Калории: ").append(meal.getCalories()).append("\n\n")
+                .append("Време за приготвяне: ").append(meal.getPrepTime()).append("\n\n")
 
-        return data;
+            img = meal.getMealImg();
+
+            return data;
+        }
+        else{
+            img="template";
+            return data.append("Няма подобна рецепта");
+        }
     }
 }
