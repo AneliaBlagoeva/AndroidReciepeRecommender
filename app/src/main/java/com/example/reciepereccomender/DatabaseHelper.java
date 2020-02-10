@@ -97,14 +97,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);
 
         int categoryID = 1;
-        String queryCategory = "SELECT id FROM Category WHERE value=\"" + c.category + "\"";
+        String queryCategory = "SELECT id FROM Category WHERE value=" + '"' + c.category + '"';
         Cursor categoryCursor = db.rawQuery(queryCategory, null);
         while (categoryCursor.moveToNext()) {
             categoryID = categoryCursor.getInt(0);
         }
 
         int typeID = 1;
-        String queryType = "SELECT id FROM Type WHERE value=\"" + c.type + "\"";
+        String queryType = "SELECT id FROM Type WHERE value=" + '"'+ c.type + '"';
         Cursor typeCursor = db.rawQuery(queryType, null);
         while (typeCursor.moveToNext()) {
             typeID = typeCursor.getInt(0);

@@ -6,54 +6,61 @@
                                              android:background="@color/colorPrimary">
 
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true" tools:layout_editor_absoluteY="261dp" tools:layout_editor_absoluteX="16dp">
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            tools:layout_editor_absoluteX="-31dp"
+            tools:layout_editor_absoluteY="50dp">
 
         <android.support.constraint.ConstraintLayout
-                android:orientation="vertical"
-                android:gravity="center"
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".AnotherActivity" android:id="@+id/linearLayout2">
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:context=".AnotherActivity">
+
 
             <ImageView
-                    android:layout_width="285dp"
-                    android:layout_height="227dp"
-                    android:scaleType="fitXY"
+                    android:id="@+id/imageView"
+                    android:layout_width="310dp"
+                    android:layout_height="285dp"
+                    android:layout_marginBottom="8dp"
                     android:padding="20sp"
-                    android:id="@+id/imageView" tools:layout_conversion_absoluteHeight="296dp"
-                    tools:layout_conversion_absoluteWidth="296dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.495"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="8dp" android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="8dp" app:layout_constraintVertical_bias="0.022"/>
-
+                    app:layout_constraintVertical_bias="0.043"
+                    tools:layout_conversion_absoluteHeight="296dp"
+                    tools:layout_conversion_absoluteWidth="296dp" />
 
             <TextView
                     android:id="@+id/result"
-                    android:text="This is another Activity"
-                    android:textSize="10sp"
+                    android:layout_width="300dp"
+                    android:layout_height="313dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
                     android:elegantTextHeight="true"
-                    android:textColor="@color/colorAccent"
                     android:lineSpacingMultiplier="1.2"
                     android:padding="20sp"
-                    android:layout_width="254dp"
-                    android:layout_height="match_parent"
                     android:scrollbars="vertical"
-                    tools:layout_conversion_absoluteWidth="328dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginRight="8dp" android:layout_marginStart="8dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-                    app:layout_constraintHorizontal_bias="0.496" app:layout_constraintVertical_bias="0.112"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView"/>
+                    android:text="This is another Activity"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView"
+                    app:layout_constraintVertical_bias="0.61"
+                    tools:layout_conversion_absoluteWidth="328dp" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
