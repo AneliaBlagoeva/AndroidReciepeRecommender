@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity(){
 
     private var dbHelper: DatabaseHelper? = null
     private var img:String?=""
+    private var title:String?=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
@@ -92,6 +93,7 @@ class MainActivity : AppCompatActivity(){
         val intent = Intent(this, ResultActivity::class.java)
 
         intent.putExtra("result", data.toString());
+        intent.putExtra("title", title.toString());
         intent.putExtra("image", img.toString());
         // start your next activity
         startActivity(intent)
@@ -105,14 +107,13 @@ class MainActivity : AppCompatActivity(){
             val index = Random.nextInt(list.size)
 
             val meal = list.get(index)
-            data.append(meal.getName()).append("\n\n")
-                .append(meal.getIngredients()).append("\n\n")
-                .append(meal.getSteps()).append("\n\n")
-                .append("Калории: ").append(meal.getCalories()).append("\n\n")
-                .append("Време за приготвяне: ").append(meal.getPrepTime()).append("\n\n")
+            data.append(meal.getIngredients()).append("\n")
+                .append(meal.getSteps()).append("\n")
+                .append("Калории: ").append(meal.getCalories()).append("\n")
+                .append("Време за приготвяне: ").append(meal.getPrepTime()).append("\n")
 
             img = meal.getMealImg();
-
+            title= meal.getName();
             return data;
         }
         else{

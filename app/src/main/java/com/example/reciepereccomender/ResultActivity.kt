@@ -21,6 +21,8 @@ class ResultActivity : AppCompatActivity() {
         if (intent.hasExtra("result")) {
             val value = extras.getString("result")
             val imageUrl = extras.getString("image")
+            val titleValue = extras.getString("title")
+
             val imageView = findViewById<View>(R.id.imageView) as ImageView
             imageView.setImageResource(getResources().getIdentifier(imageUrl,"drawable",packageName))
 
@@ -28,7 +30,9 @@ class ResultActivity : AppCompatActivity() {
             val tv = findViewById<View>(R.id.result) as TextView
             tv.movementMethod = ScrollingMovementMethod.getInstance()
             tv.text = value;
-            //The key argument here must match that used in the other activity
+
+            val title = findViewById<View>(R.id.title) as TextView
+            title.text = titleValue;
         }
     }
 }
