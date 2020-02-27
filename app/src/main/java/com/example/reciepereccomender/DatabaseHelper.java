@@ -115,7 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         queryBase.append("SELECT idMeal,ingredients,steps, calories, prepTime,name, mealImage " +
                         "FROM Meal M " +
                         "INNER JOIN MEAL_CATEGORY C ON C.MEALID=M.IDMEAL ");
-        if (typeID != 7) {
+        if (typeID != 1) {
             queryBase.append("INNER JOIN MEAL_TYPE T ON T.MEALID=M.IDMEAL " +
                             "WHERE T.TYPEID=" + typeID + " " +
                             "AND C.CATEGORYID=" + categoryID + " ");

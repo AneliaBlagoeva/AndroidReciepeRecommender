@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(){
         spinner.adapter = stringArrayAdapter
 
         //spinner type
-        val types = arrayOf("ВСИЧКИ", "БЕЗ РЕЖИМ", "ВЕГАН", "ВЕГЕТАРИАНСКА","КЕТО","БЕЗ ГЛУТЕН", "БЕЗ ЛАКТОЗА")
+        val types = arrayOf("ВСИЧКИ", "ВЕГАН", "ВЕГЕТАРИАНСКА", "БЕЗ ЛАКТОЗА")
         val stringArrayAdapterTypes = ArrayAdapter(this, R.layout.spinner_text_color, types)
 
         // create a spinner
@@ -109,8 +109,8 @@ class MainActivity : AppCompatActivity(){
             val meal = list.get(index)
             data.append(meal.getIngredients()).append("\n")
                 .append(meal.getSteps()).append("\n")
-                .append("Калории: ").append(meal.getCalories()).append("\n")
-                .append("Време за приготвяне: ").append(meal.getPrepTime()).append("\n")
+                .append("Калории: ").append(meal.getCalories()).append(" kcal\n")
+                .append("Време за приготвяне: ").append(meal.getPrepTime()).append(" мин\n")
 
             img = meal.getMealImg();
             title= meal.getName();
