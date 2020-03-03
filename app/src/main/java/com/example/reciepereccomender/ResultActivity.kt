@@ -1,14 +1,13 @@
 package com.example.reciepereccomender
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.text.method.ScrollingMovementMethod
-
-
-
 
 
 class ResultActivity : AppCompatActivity() {
@@ -34,5 +33,14 @@ class ResultActivity : AppCompatActivity() {
             val title = findViewById<View>(R.id.title) as TextView
             title.text = titleValue;
         }
+
+
+        val img = findViewById<View>(R.id.myImageId) as ImageView
+            img.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(v: View) {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
+                startActivity(browserIntent)
+            }
+        })
     }
 }

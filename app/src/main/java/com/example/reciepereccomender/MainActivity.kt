@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity(){
 
         val intent = Intent(this, ResultActivity::class.java)
 
-        intent.putExtra("result", data.toString());
+        intent.putExtra("result", data.toString())
         intent.putExtra("title", title.toString());
         intent.putExtra("image", img.toString());
         // start your next activity
