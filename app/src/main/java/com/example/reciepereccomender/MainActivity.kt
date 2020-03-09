@@ -107,10 +107,10 @@ class MainActivity : AppCompatActivity(){
             val index = Random.nextInt(list.size)
 
             val meal = list.get(index)
-            data.append(meal.getIngredients()).append("\n")
-                .append(meal.getSteps()).append("\n")
-                .append("Калории: ").append(meal.getCalories()).append(" kcal\n")
-                .append("Време за приготвяне: ").append(meal.getPrepTime()).append(" мин\n")
+            data.append(meal.getIngredients()).append("\n\n")
+                .append(meal.getSteps()).append("\n\n")
+                .append("Калории: ").append(meal.getCalories()).append(" kcal\n\n")
+                .append("Време за приготвяне: ").append(meal.getPrepTime()).append(" мин\n\n")
 
             img = meal.getMealImg();
             title= meal.getName();
