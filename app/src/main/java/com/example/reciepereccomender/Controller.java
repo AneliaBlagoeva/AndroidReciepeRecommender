@@ -54,9 +54,9 @@ public class Controller {
     public Controller() {
         this.type = "Без режим";
         this.category="Закуска";
-        this.ingredientOne = "яйце";
-        this.ingredientTwo = "яйце";
-        this.ingredientTheree = "яйце";
+        this.ingredientOne = new String();
+        this.ingredientTwo = new String();
+        this.ingredientTheree = new String();
     }
 
     public Controller(String category, String type, String ingredientOne, String ingredientTwo, String ingredientTheree) {

@@ -38,7 +38,7 @@ class ResultActivity : AppCompatActivity() {
         val img = findViewById<View>(R.id.myImageId) as ImageView
             img.setOnClickListener(object: View.OnClickListener {
             override fun onClick(v: View) {
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://profitshare.bg/l/919357"))
                 startActivity(browserIntent)
             }
         })
