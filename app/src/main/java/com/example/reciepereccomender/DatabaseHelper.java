@@ -202,11 +202,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         if (!c.ingredientTwo.isEmpty()) {
-            result.add(c.ingredientOne);
+            result.add(c.ingredientTwo);
         }
 
         if (!c.ingredientThree.isEmpty()) {
-            result.add(c.ingredientOne);
+            result.add(c.ingredientThree);
         }
 
         return result;
