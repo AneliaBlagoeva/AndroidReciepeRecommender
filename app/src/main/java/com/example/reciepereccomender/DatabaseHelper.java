@@ -93,24 +93,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
-
     public List<Meal> getMeals(Controller c) {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);
+        List<Meal> foundRecipes = new ArrayList<Meal>();
 
-        int categoryID = 1;
-        String queryCategory = "SELECT id FROM Category WHERE value=" + '"' + c.category + '"';
-        Cursor categoryCursor = db.rawQuery(queryCategory, null);
-        while (categoryCursor.moveToNext()) {
-            categoryID = categoryCursor.getInt(0);
-        }
+        Cursor cursor=null;
+        List<String> ingredients = getIngredients(c);
 
-        int typeID = 1;
-        String queryType = "SELECT id FROM Type WHERE value=" + '"' + c.type + '"';
-        Cursor typeCursor = db.rawQuery(queryType, null);
-        while (typeCursor.moveToNext()) {
-            typeID = typeCursor.getInt(0);
-        }
-
+        int categoryID = getCategoryID(c, db);
+        int typeID = getTypeID(c, db);
 
         //BASE===========================================================================
         StringBuffer queryBase = new StringBuffer();
@@ -126,111 +117,123 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
 
-        //ALL INGREDIENTS====================================================================
-        StringBuffer queryAll = new StringBuffer();
-        queryAll.append(queryBase);
-        Cursor cursor = null;
-        if ((!c.ingredientOne.isEmpty()) && (!c.ingredientTwo.isEmpty()) && (!c.ingredientTheree.isEmpty())) {
-            queryAll.append("AND M.ingredients LIKE \"%" + c.ingredientOne + "%\""
-                    + "AND M.ingredients LIKE \"%" + c.ingredientTwo + "%\""
-                    + "AND M.ingredients LIKE \"%" + c.ingredientTheree + "%\"");
-
-            cursor = db.rawQuery(queryAll.toString(), null);
+        //0 ingredients are entered by user
+        if(ingredients.isEmpty()){
+            return foundRecipes;
         }
 
-        //COMBINATIONS=====================================================================
-        if (cursor == null) {
-            StringBuffer queryCombinatiion = new StringBuffer();
-            queryCombinatiion.append(queryBase);
-            Boolean run = false;
-            Boolean appendedAnd = false;
-            if (c.ingredientOne.isEmpty() == false && c.ingredientTwo.isEmpty() == false) {
-                run = true;
-                if (appendedAnd == false) {
-                    queryCombinatiion.append("AND ");
-                    appendedAnd = true;
-                } else {
-                    queryCombinatiion.append(" OR ");
-                }
-                queryCombinatiion.append("(M.ingredients " +
-                        "LIKE \"%" + c.ingredientOne + "%\" AND M.ingredients " +
-                        "LIKE \"%" + c.ingredientTwo + "%\")");
-            }
-            if (c.ingredientOne.isEmpty() == false && c.ingredientTheree.isEmpty() == false) {
-                run = true;
-                if (appendedAnd == false) {
-                    queryCombinatiion.append("AND ");
-                    appendedAnd = true;
-                } else {
-                    queryCombinatiion.append(" OR ");
-                }
-                queryCombinatiion.append("(M.ingredients " +
-                        "LIKE \"%" + c.ingredientOne + "%\" AND M.ingredients " +
-                        "LIKE \"%" + c.ingredientTheree + "%\")");
-            }
-            if (c.ingredientTwo.isEmpty() == false && c.ingredientTheree.isEmpty() == false) {
-                run = true;
-                if (appendedAnd == false) {
-                    queryCombinatiion.append("AND ");
-                } else {
-                    queryCombinatiion.append(" OR ");
-                }
-                queryCombinatiion.append("(M.ingredients " +
-                        "LIKE \"%" + c.ingredientTwo + "%\" AND M.ingredients " +
-                        "LIKE \"%" + c.ingredientTheree + "%\")");
-            }
-            if (queryCombinatiion.length() != 0) {
-                StringBuffer query = new StringBuffer();
-                query.append(queryBase);
-                query.append((queryCombinatiion));
+        //all ingredients are entered by user
+        if (ingredients.size()==3) {
+            cursor=getResultsForAllIngr(db, queryBase, ingredients.get(0), ingredients.get(1), ingredients.get(2));
 
-                if (run) {
-                    cursor = db.rawQuery(queryCombinatiion.toString(), null);
-                }
+            if(cursor.getCount()<1){
+                cursor=getResultsForTwoIngr(db, queryBase, ingredients.get(0), ingredients.get(1));
             }
 
+            if(cursor.getCount()<1){
+                cursor=getResultsForTwoIngr(db, queryBase, ingredients.get(0), ingredients.get(2));
+            }
+
+            if(cursor.getCount()<1){
+                cursor=getResultsForTwoIngr(db, queryBase, ingredients.get(1), ingredients.get(2));
+            }
+
+            if(cursor.getCount()<1){
+                cursor=getResultsForOneIngr(db, queryBase, ingredients.get(0));
+            }
+
+            if(cursor.getCount()<1){
+                cursor=getResultsForOneIngr(db, queryBase, ingredients.get(1));
+            }
+
+            if(cursor.getCount()<1){
+                cursor=getResultsForOneIngr(db, queryBase, ingredients.get(2));
+            }
         }
 
-        //ONE INGREDIENT ONLY================================================================
-        if (cursor == null || cursor.getCount() < 1) {
-            StringBuffer query = new StringBuffer();
-            query.append(queryBase);
-            Boolean appendedAnd = false;
-            if (c.ingredientOne.isEmpty() == false) {
-                if (appendedAnd == false) {
-                    appendedAnd = true;
-                    query.append("AND ");
-                } else {
-                    query.append("OR ");
-                }
-                query.append("M.ingredients " +
-                        "LIKE \"%" + c.ingredientOne + "%\"");
-            }
-            if (c.ingredientTwo.isEmpty() == false) {
-                if (appendedAnd == false) {
-                    appendedAnd = true;
-                    query.append("AND ");
-                } else {
-                    query.append("OR ");
-                }
-                query.append("M.ingredients " +
-                        "LIKE \"%" + c.ingredientTwo + "%\"");
-            }
-            if (c.ingredientTheree.isEmpty() == false) {
-                if (appendedAnd == false) {
-
-                    query.append("AND ");
-                } else {
-                    query.append("OR ");
-                }
-                query.append("M.ingredients " +
-                        "LIKE \"%" + c.ingredientTheree + "%\"");
+        //two ingredients are entered by user
+        if(ingredients.size()==2)
+        {
+            cursor=getResultsForTwoIngr(db, queryBase, ingredients.get(0), ingredients.get(1));
+            if(cursor.getCount()<1){
+                cursor=getResultsForOneIngr(db, queryBase, ingredients.get(0));
             }
 
-            cursor = db.rawQuery(query.toString(), null);
+            if(cursor.getCount()<1){
+                cursor=getResultsForOneIngr(db, queryBase, ingredients.get(1));
+            }
         }
 
-        List<Meal> list = new ArrayList<Meal>();
+        //only one ingredient is entered by user
+        if(ingredients.size()==1)
+        {
+            cursor=getResultsForOneIngr(db, queryBase, ingredients.get(0));
+        }
+
+        createRecipes(cursor, foundRecipes);
+        db.close();
+        return foundRecipes;
+    }
+
+    private int getTypeID(Controller c, SQLiteDatabase db) {
+        int typeID = 1;
+        String queryType = "SELECT id FROM Type WHERE value=" + '"' + c.type + '"';
+        Cursor typeCursor = db.rawQuery(queryType, null);
+        while (typeCursor.moveToNext()) {
+            typeID = typeCursor.getInt(0);
+        }
+        return typeID;
+    }
+
+    private int getCategoryID(Controller c, SQLiteDatabase db) {
+        int categoryID = 1;
+        String queryCategory = "SELECT id FROM Category WHERE value=" + '"' + c.category + '"';
+        Cursor categoryCursor = db.rawQuery(queryCategory, null);
+        while (categoryCursor.moveToNext()) {
+            categoryID = categoryCursor.getInt(0);
+        }
+        return categoryID;
+    }
+
+    private List<String> getIngredients(Controller c) {
+        List<String> result = new ArrayList<>();
+        if (!c.ingredientOne.isEmpty()) {
+            result.add(c.ingredientOne);
+        }
+
+        if (!c.ingredientTwo.isEmpty()) {
+            result.add(c.ingredientOne);
+        }
+
+        if (!c.ingredientThree.isEmpty()) {
+            result.add(c.ingredientOne);
+        }
+
+        return result;
+    }
+
+    private Cursor getResultsForAllIngr(SQLiteDatabase db, StringBuffer queryAll, String ingredientOne, String ingredientTwo, String ingredientThree) {
+            queryAll.append("AND M.ingredients LIKE \"%" + ingredientOne + "%\""
+                    + "AND M.ingredients LIKE \"%" + ingredientTwo + "%\""
+                    + "AND M.ingredients LIKE \"%" + ingredientThree + "%\"");
+
+            return db.rawQuery(queryAll.toString(), null);
+    }
+
+    private Cursor getResultsForTwoIngr(SQLiteDatabase db, StringBuffer queryAll, String ingredientOne, String ingredientTwo) {
+            queryAll.append("AND M.ingredients LIKE \"%" + ingredientOne + "%\""
+                    + "AND M.ingredients LIKE \"%" + ingredientTwo + "%\"");
+            return db.rawQuery(queryAll.toString(), null);
+    }
+
+    private Cursor getResultsForOneIngr(SQLiteDatabase db, StringBuffer queryAll, String ingredientOne) {
+            queryAll.append("AND M.ingredients LIKE \"%" + ingredientOne + "%\"");
+
+            return db.rawQuery(queryAll.toString(), null);
+    }
+
+    private void createRecipes(Cursor cursor, List<Meal> result)
+    {
         if (cursor != null && cursor.getCount() >= 1) {
             while (cursor.moveToNext()) {
                 Meal meal = new Meal();
@@ -241,11 +244,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 meal.setPrepTime(cursor.getString(4));
                 meal.setName(cursor.getString(5));
                 meal.setMealImg(cursor.getString(6));
-                list.add(meal);
+                result.add(meal);
             }
         }
-        db.close();
-        return list;
     }
 
 }

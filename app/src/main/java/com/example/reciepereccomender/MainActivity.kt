@@ -8,8 +8,6 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Button
 import kotlin.random.Random
-import android.text.method.TextKeyListener.clear
-import android.view.View
 
 
 class MainActivity : AppCompatActivity(){
@@ -77,7 +75,7 @@ class MainActivity : AppCompatActivity(){
             if(mEditField3.length!=0)
             {
                 var mEdit3=mEditField3.toString()
-                c.setIngredientTheree(mEdit3);
+                c.setIngredientThree(mEdit3);
             }
 
             c.setCategory((findViewById(R.id.spinner) as Spinner).getSelectedItem().toString());

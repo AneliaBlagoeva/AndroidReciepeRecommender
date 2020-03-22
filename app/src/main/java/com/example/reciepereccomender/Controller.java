@@ -41,29 +41,29 @@ public class Controller {
 
     public String ingredientTwo;
 
-    public String getIngredientTheree() {
-        return ingredientTheree;
+    public String getIngredientThree() {
+        return ingredientThree;
     }
 
-    public void setIngredientTheree(String ingredientTheree) {
-        this.ingredientTheree = ingredientTheree;
+    public void setIngredientThree(String ingredientThree) {
+        this.ingredientThree = ingredientThree;
     }
 
-    public String ingredientTheree;
+    public String ingredientThree;
 
     public Controller() {
         this.type = "Без режим";
         this.category="Закуска";
         this.ingredientOne = new String();
         this.ingredientTwo = new String();
-        this.ingredientTheree = new String();
+        this.ingredientThree = new String();
     }
 
-    public Controller(String category, String type, String ingredientOne, String ingredientTwo, String ingredientTheree) {
+    public Controller(String category, String type, String ingredientOne, String ingredientTwo, String ingredientThree) {
         this.category = category;
         this.type = type;
         this.ingredientOne = ingredientOne;
         this.ingredientTwo = ingredientTwo;
-        this.ingredientTheree = ingredientTheree;
+        this.ingredientThree = ingredientThree;
     }
 }
