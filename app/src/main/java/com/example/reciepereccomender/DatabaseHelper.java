@@ -97,7 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = SQLiteDatabase.openDatabase(pathToSaveDBFile, null, SQLiteDatabase.OPEN_READONLY);
         List<Meal> foundRecipes = new ArrayList<Meal>();
 
-        Cursor cursor=null;
+        Cursor cursor = null;
         List<String> ingredients = getIngredients(c);
 
         int categoryID = getCategoryID(c, db);
@@ -118,56 +118,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         //0 ingredients are entered by user
-        if(ingredients.isEmpty()){
+        if (ingredients.isEmpty()) {
             return foundRecipes;
         }
 
         //all ingredients are entered by user
-        if (ingredients.size()==3) {
-            cursor=getResultsForAllIngr(db, queryBase, ingredients.get(0), ingredients.get(1), ingredients.get(2));
+        if (ingredients.size() == 3) {
+            cursor = getResultsForAllIngr(db, queryBase, ingredients.get(0), ingredients.get(1), ingredients.get(2));
 
-            if(cursor.getCount()<1){
-                cursor=getResultsForTwoIngr(db, queryBase, ingredients.get(0), ingredients.get(1));
+            if (cursor.getCount() < 1) {
+                cursor = getResultsForTwoIngr(db, queryBase, ingredients.get(0), ingredients.get(1));
             }
 
-            if(cursor.getCount()<1){
-                cursor=getResultsForTwoIngr(db, queryBase, ingredients.get(0), ingredients.get(2));
+            if (cursor.getCount() < 1) {
+                cursor = getResultsForTwoIngr(db, queryBase, ingredients.get(0), ingredients.get(2));
             }
 
-            if(cursor.getCount()<1){
-                cursor=getResultsForTwoIngr(db, queryBase, ingredients.get(1), ingredients.get(2));
+            if (cursor.getCount() < 1) {
+                cursor = getResultsForTwoIngr(db, queryBase, ingredients.get(1), ingredients.get(2));
             }
 
-            if(cursor.getCount()<1){
-                cursor=getResultsForOneIngr(db, queryBase, ingredients.get(0));
+            if (cursor.getCount() < 1) {
+                cursor = getResultsForOneIngr(db, queryBase, ingredients.get(0));
             }
 
-            if(cursor.getCount()<1){
-                cursor=getResultsForOneIngr(db, queryBase, ingredients.get(1));
+            if (cursor.getCount() < 1) {
+                cursor = getResultsForOneIngr(db, queryBase, ingredients.get(1));
             }
 
-            if(cursor.getCount()<1){
-                cursor=getResultsForOneIngr(db, queryBase, ingredients.get(2));
+            if (cursor.getCount() < 1) {
+                cursor = getResultsForOneIngr(db, queryBase, ingredients.get(2));
             }
         }
 
         //two ingredients are entered by user
-        if(ingredients.size()==2)
-        {
-            cursor=getResultsForTwoIngr(db, queryBase, ingredients.get(0), ingredients.get(1));
-            if(cursor.getCount()<1){
-                cursor=getResultsForOneIngr(db, queryBase, ingredients.get(0));
+        if (ingredients.size() == 2) {
+            cursor = getResultsForTwoIngr(db, queryBase, ingredients.get(0), ingredients.get(1));
+            if (cursor.getCount() < 1) {
+                cursor = getResultsForOneIngr(db, queryBase, ingredients.get(0));
             }
 
-            if(cursor.getCount()<1){
-                cursor=getResultsForOneIngr(db, queryBase, ingredients.get(1));
+            if (cursor.getCount() < 1) {
+                cursor = getResultsForOneIngr(db, queryBase, ingredients.get(1));
             }
         }
 
         //only one ingredient is entered by user
-        if(ingredients.size()==1)
-        {
-            cursor=getResultsForOneIngr(db, queryBase, ingredients.get(0));
+        if (ingredients.size() == 1) {
+            cursor = getResultsForOneIngr(db, queryBase, ingredients.get(0));
         }
 
         createRecipes(cursor, foundRecipes);
@@ -213,27 +211,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private Cursor getResultsForAllIngr(SQLiteDatabase db, StringBuffer queryAll, String ingredientOne, String ingredientTwo, String ingredientThree) {
-            queryAll.append("AND M.ingredients LIKE \"%" + ingredientOne + "%\""
-                    + "AND M.ingredients LIKE \"%" + ingredientTwo + "%\""
-                    + "AND M.ingredients LIKE \"%" + ingredientThree + "%\"");
+        queryAll.append(" AND M.ingredients LIKE ?"
+                + " AND M.ingredients LIKE ?"
+                + " AND M.ingredients LIKE ?");
 
-            return db.rawQuery(queryAll.toString(), null);
+        return db.rawQuery(queryAll.toString(), new String[]{"%" + ingredientOne + "%",
+                "%" + ingredientTwo + "%",
+                "%" + ingredientThree + "%"});
     }
 
     private Cursor getResultsForTwoIngr(SQLiteDatabase db, StringBuffer queryAll, String ingredientOne, String ingredientTwo) {
-            queryAll.append("AND M.ingredients LIKE \"%" + ingredientOne + "%\""
-                    + "AND M.ingredients LIKE \"%" + ingredientTwo + "%\"");
-            return db.rawQuery(queryAll.toString(), null);
+        queryAll.append(" AND M.ingredients LIKE ?"
+                + " AND M.ingredients LIKE ?");
+
+        return db.rawQuery(queryAll.toString(), new String[]{"%" + ingredientOne + "%",
+                "%" + ingredientTwo + "%"});
     }
 
     private Cursor getResultsForOneIngr(SQLiteDatabase db, StringBuffer queryAll, String ingredientOne) {
-            queryAll.append("AND M.ingredients LIKE \"%" + ingredientOne + "%\"");
+        queryAll.append("AND M.ingredients LIKE ?");
 
-            return db.rawQuery(queryAll.toString(), null);
+        return db.rawQuery(queryAll.toString(), new String[]{"%" + ingredientOne + "%"});
     }
 
-    private void createRecipes(Cursor cursor, List<Meal> result)
-    {
+    private void createRecipes(Cursor cursor, List<Meal> result) {
         if (cursor != null && cursor.getCount() >= 1) {
             while (cursor.moveToNext()) {
                 Meal meal = new Meal();
