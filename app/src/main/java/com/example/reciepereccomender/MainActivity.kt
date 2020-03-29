@@ -115,6 +115,7 @@ class MainActivity : AppCompatActivity(){
             return data;
         }
         else{
+            title="";
             img="template";
             return data.append("Няма подобна рецепта");
         }
