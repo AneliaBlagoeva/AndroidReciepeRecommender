@@ -1,5 +1,7 @@
 package com.example.reciepereccomender
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +10,13 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Button
 import kotlin.random.Random
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.support.v4.content.ContextCompat.getSystemService
+import android.view.MotionEvent
+import android.support.v4.app.SupportActivity
+import android.support.v4.app.SupportActivity.ExtraData
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.view.inputmethod.InputMethodManager
 
 
 class MainActivity : AppCompatActivity(){
@@ -49,6 +58,16 @@ class MainActivity : AppCompatActivity(){
 
 
     }
+
+    @SuppressLint("ServiceCast")
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (currentFocus != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
 
     private fun AwesomeButtonClick()
     {
@@ -115,9 +134,9 @@ class MainActivity : AppCompatActivity(){
             return data;
         }
         else{
-            title="";
+            title="Няма подобна рецепта";
             img="template";
-            return data.append("Няма подобна рецепта");
+            return data.append("");
         }
     }
 }
