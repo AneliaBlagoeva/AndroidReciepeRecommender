@@ -1,4 +1,4 @@
-package com.example.reciepereccomender;
+package com.ani.recipereccomender;
 
 import android.content.Context;
 import android.database.Cursor;

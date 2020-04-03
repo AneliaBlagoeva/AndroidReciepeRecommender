@@ -1,4 +1,4 @@
-package com.example.reciepereccomender;
+package com.ani.recipereccomender;
 
 public class Controller {
     public String getCategory() {

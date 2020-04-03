@@ -1,4 +1,4 @@
-package com.example.reciepereccomender
+package com.ani.recipereccomender
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.example.reciepereccomender", appContext.packageName)
+        assertEquals("com.ani.reciepereccomender", appContext.packageName)
     }
 }

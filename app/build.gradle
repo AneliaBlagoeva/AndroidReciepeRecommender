@@ -7,8 +7,8 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.reciepereccomender"
-        minSdkVersion 15
+        applicationId "com.ani.reciepereccomender"
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"

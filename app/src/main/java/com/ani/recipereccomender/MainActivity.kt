@@ -1,4 +1,4 @@
-package com.example.reciepereccomender
+package com.ani.recipereccomender
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,12 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Button
 import kotlin.random.Random
-import android.content.Context.INPUT_METHOD_SERVICE
-import android.support.v4.content.ContextCompat.getSystemService
 import android.view.MotionEvent
-import android.support.v4.app.SupportActivity
-import android.support.v4.app.SupportActivity.ExtraData
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.inputmethod.InputMethodManager
 
 
@@ -31,7 +26,8 @@ class MainActivity : AppCompatActivity(){
 
         // create a adapter
         val categories = arrayOf("ЗАКУСКА", "ОБЯД", "СНАК","ВЕЧЕРЯ")
-        val stringArrayAdapter = ArrayAdapter(this, R.layout.spinner_text_color, categories)
+        val stringArrayAdapter = ArrayAdapter(this,
+            R.layout.spinner_text_color, categories)
 
         // create a spinner
         val spinner = findViewById(R.id.spinner) as Spinner
@@ -40,7 +36,8 @@ class MainActivity : AppCompatActivity(){
 
         //spinner type
         val types = arrayOf("ВСИЧКИ", "ВЕГАН", "ВЕГЕТАРИАНСКА", "БЕЗ ЛАКТОЗА")
-        val stringArrayAdapterTypes = ArrayAdapter(this, R.layout.spinner_text_color, types)
+        val stringArrayAdapterTypes = ArrayAdapter(this,
+            R.layout.spinner_text_color, types)
 
         // create a spinner
         val spinnerType = findViewById(R.id.spinnerType) as Spinner
@@ -116,7 +113,7 @@ class MainActivity : AppCompatActivity(){
         startActivity(intent)
     }
 
-    private fun showData(c:Controller) : StringBuffer {
+    private fun showData(c: Controller) : StringBuffer {
         val list = dbHelper!!.getMeals(c);
         val data = StringBuffer();
         if (list.isNotEmpty()) {
